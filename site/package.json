@@ -4,7 +4,8 @@
   "description": "BallSacks",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "site": "node index.js"
   },
   "keywords": [
     "Hack",
