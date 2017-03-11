@@ -12,5 +12,8 @@
     "Hackathon"
   ],
   "author": "Aaron Tello-Wharton",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
 }
