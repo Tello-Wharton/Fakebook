@@ -4,13 +4,17 @@ var app = express();
 var algoliasearch = require("algoliasearch")
 var client = algoliasearch('TRSE7O3IIG', '883a415024ea2e75c8451da21a42d077');
 
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-//client.deleteIndex("testing-purposes");
+client.deleteIndex("testing-purposes");
 
 var id_weight = "SuperAwesomeMakeAmericaGreatAganAndGetMyId";
 var post_weight = "amazingnotterriblepostidentifyer";
 
 var index = client.initIndex('testing-purposes');
+
+
 
 app.use(express.static(__dirname + '/')); // set the static files location /public/img will be /img for users
 app.listen(8001);
@@ -42,9 +46,10 @@ app.get("/set-status2", function(req, res) {
     });
 });
 
-app.post("/set-status", function(req, res) {
-    var id = id_weight + req.query.id;
-    var content = req.query.content;
+app.post("/set-status", urlencodedParser, function(req, res) {
+    console.log(req.body.id);
+    var id = id_weight + req.body.id;
+    var content = req.body.content;
 
     var objects = [{
       type : post_weight,
