@@ -8,14 +8,18 @@ app.use(express.static(__dirname + '/')); // set the static files location /publ
 app.listen(8001);
 
 function algoliatest(){
-  var index = client.initIndex('indexName');
+  var index = client.initIndex('testing-purposes');
 
   var objects = [{
-    firstname: 'Jimmie',
-    lastname: 'Barninger'
+    id : "cake",
+    firstname : "Aaron",
+    surname : "Tello-Wharton",
+    profile_pic : "http://ichef-1.bbci.co.uk/news/660/cpsprodpb/14C52/production/_92847058_c3c1256f-1f69-45fe-ade5-a1822e3d9b9c.jpg"
   }, {
-    firstname: 'Warren',
-    lastname: 'Speach'
+    id : "huel",
+    firstname: 'Daddy',
+    lastname: 'Lowe',
+    profile_pic : "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Kanadagans_Branta_canadensis.jpg/220px-Kanadagans_Branta_canadensis.jpg"
   }];
 
   index.addObjects(objects, function(err, content) {
@@ -23,11 +27,14 @@ function algoliatest(){
   });
 
 
-  index.search('Jimmie', function searchDone(err, content) {
+  index.search('Daddy', function searchDone(err, content) {
     console.log(err, content);
   });
 
-  
+
+  client.deleteIndex("testing-purposes");
+
+
 }
 
 algoliatest();
