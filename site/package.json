@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "site": "node index.js"
+    "site": "node site/index.js"
   },
   "keywords": [
     "Hack",
