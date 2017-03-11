@@ -18,14 +18,14 @@
     </header>
     <main>
         <section class="composition-box main-content">
-            <form method="post" action="/make-post">
+            <form enctype="multipart/form-data" method="post" action="/set-status">
                 <div class="composition-user">
-                    <select name="post-as" class="user-select">
+                    <select name="id" class="user-select">
                         <option> Joe Bloggs </option>
                     </select>
                 </div>
                 <div class="composition-content">
-                    <textarea name="post" class="post-text" placeholder="What's on Joe Blogg's mind?">
+                    <textarea name="content" class="post-text" placeholder="What's on Joe Blogg's mind?">
                     </textarea>
                 </div>
                 <div class="composition-send">

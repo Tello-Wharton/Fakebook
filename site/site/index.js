@@ -43,8 +43,8 @@ app.get("/set-status2", function(req, res) {
 });
 
 app.post("/set-status", function(req, res) {
-    var id = id_weight + req.body.id;
-    var content = req.body.content;
+    var id = id_weight + req.query.id;
+    var content = req.query.content;
 
     var objects = [{
       type : post_weight,
