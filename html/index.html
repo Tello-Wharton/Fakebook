@@ -10,22 +10,25 @@
             <img src="images/fakebook-icon.png" alt="Fakebook"/>
             <div class="header-text"/>
                 <h1>Fakebook</h1>
-                <p class="subtitle">Fake it with you friends</p>
+                <p class="subtitle">Fake it with your friends</p>
             </div>
         </div>
     </header>
     <main>
         <section class="composition-box main-content">
             <form method="post" action="/make-post">
-                <select name="post-as" class="user-select">
-                    <option>
-                        <img src="" alt="User" class="profile-picture-select"/>
-                        <p class="name-select">Joe Bloggs</p>
-                    </option>
-                </select>
-                <textarea name="post" class="post-text">
-                </textarea>
-                <input class="post-submit" type="submit"/>
+                <div class="composition-user">
+                    <select name="post-as" class="user-select">
+                        <option> Joe Bloggs </option>
+                    </select>
+                </div>
+                <div class="composition-content">
+                    <textarea name="post" class="post-text" placeholder="What's on Joe Blogg's mind?">
+                    </textarea>
+                </div>
+                <div class="composition-send">
+                    <input class="post-submit" type="submit"/>
+                </div>
             </form>
         </section>
         <section class="feed">
