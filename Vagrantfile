@@ -14,8 +14,9 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/xenial64"
 
+  config.vm.network "forwarded_port", guest: 8001, host: 80
 
-  config.vm.synced_folder "home", "/home/ubuntu", create: true
+  #config.vm.synced_folder "home", "/home/ubuntu", create: true
   config.vm.synced_folder "site", "/site", create: true
 
   config.vm.provision :shell, path: "scripts/bootstrap.sh"

@@ -1,3 +1,4 @@
 .vagrant
 *.log
 npm-debug.log*
+site/node_modules

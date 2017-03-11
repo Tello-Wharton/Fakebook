@@ -6,5 +6,5 @@ sudo ln -s /usr/bin/nodejs /usr/bin/node
 
 sudo echo "ubuntu:ubuntu" | sudo chpasswd
 
-#cd /site
-#sudo npm install
+cd /site
+sudo npm install
