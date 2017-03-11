@@ -25,9 +25,26 @@ app.get("/profile", function(req, res) {
     });
 });
 
-app.get("/set-status", function(req, res) {
+app.get("/set-status2", function(req, res) {
     var id = id_weight + req.query.id;
     var content = req.query.content;
+
+    var objects = [{
+      type : post_weight,
+      id : id,
+      content : content,
+      time : Date.now()
+    }];
+
+    index.addObjects(objects, function(err, content) {
+      console.log(content);
+      res.send("cake");
+    });
+});
+
+app.post("/set-status", function(req, res) {
+    var id = id_weight + req.body.id;
+    var content = req.body.content;
 
     var objects = [{
       type : post_weight,
