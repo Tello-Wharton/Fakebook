@@ -2,12 +2,14 @@
     <title>Fakebook</title>
     <meta charset="utf-8"/>
 
-    <link rel="stylesheet" href="css/general.css"/>
+    <link rel="stylesheet" href="/css/general.css"/>
+    <script src="/scripts/jquery-3.1.1.js"></script>
+    <script src="/scripts/handlebars-v4.0.5.js"></script>
 </head>
 <body>
     <header>
         <div class="header-content">
-            <img src="images/fakebook-icon.png" alt="Fakebook"/>
+            <img src="/images/fakebook-icon.png" alt="Fakebook"/>
             <div class="header-text"/>
                 <h1>Fakebook</h1>
                 <p class="subtitle">Fake it with your friends</p>
@@ -49,6 +51,7 @@
 
         function updateFeed() {
             $.get("/feed", function(response) {
+                console.log(response);
                 var newFeedHtml = "";
 
                 var data = JSON.parse(response);
@@ -67,8 +70,8 @@
             var source   = $("#post-template").html();
             var template = Handlebars.compile(source);
             var context = {
-                name: postObject.userid,
-                postText: postObject.post
+                name: postObject.hit,
+                postText: postObject.content
             };
             var html = template(context);
             return html;
