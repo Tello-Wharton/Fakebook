@@ -5,9 +5,10 @@ var algoliasearch = require("algoliasearch")
 var client = algoliasearch('TRSE7O3IIG', '883a415024ea2e75c8451da21a42d077');
 
 
-client.deleteIndex("testing-purposes");
+//client.deleteIndex("testing-purposes");
 
 var id_weight = "SuperAwesomeMakeAmericaGreatAganAndGetMyId";
+var post_weight = "amazingnotterriblepostidentifyer";
 
 var index = client.initIndex('testing-purposes');
 
@@ -29,7 +30,7 @@ app.get("/set-status", function(req, res) {
     var content = req.query.content;
 
     var objects = [{
-      type : "post",
+      type : post_weight,
       id : id,
       content : content,
       time : Date.now()
@@ -39,6 +40,23 @@ app.get("/set-status", function(req, res) {
       console.log(content);
       res.send("cake");
     });
+});
+
+app.get("/feed", function(req, res) {
+  index.search(post_weight, function searchDone(err, content) {
+    console.log(err, content);
+
+    var cleanhits = [];
+    content.hits.forEach(function(hit){
+      cleanhits.push({
+        hit : hit.id,
+        content : hit.content,
+        time : hit.time
+      });
+    });
+
+    res.send(JSON.stringify(cleanhits));
+  });
 });
 
 
