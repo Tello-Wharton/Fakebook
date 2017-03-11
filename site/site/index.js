@@ -24,15 +24,34 @@ app.get("/profile", function(req, res) {
     });
 });
 
+app.get("/set-status", function(req, res) {
+    var id = id_weight + req.query.id;
+    var content = req.query.content;
+
+    var objects = [{
+      type : "post",
+      id : id,
+      content : content,
+      time : Date.now()
+    }];
+
+    index.addObjects(objects, function(err, content) {
+      console.log(content);
+      res.send("cake");
+    });
+});
+
 
 function algoliatest(){
 
   var objects = [{
+    type : "profile",
     id : id_weight + "cake",
     firstname : "Aaron",
     surname : "Tello-Wharton",
     profile_pic : "http://ichef-1.bbci.co.uk/news/660/cpsprodpb/14C52/production/_92847058_c3c1256f-1f69-45fe-ade5-a1822e3d9b9c.jpg"
   }, {
+    type : "profile",
     id : id_weight + "huel",
     firstname: 'Daddy',
     lastname: 'Lowe',
