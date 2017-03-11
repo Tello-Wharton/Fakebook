@@ -1,12 +1,11 @@
 <head>
     <title>Fakebook</title>
     <meta charset="utf-8"/>
-    <script src=scripts/jquery-3.1.1.js>
-    </script>
+
+    <link rel="stylesheet" href="css/general.css"/>
 </head>
 <body>
     <header>
-
         <div class="header-content">
             <img src="images/fakebook-icon.png" alt="Fakebook"/>
             <div class="header-text"/>
@@ -14,10 +13,9 @@
                 <p class="subtitle">Fake it with your friends</p>
             </div>
         </div>
-
     </header>
     <main>
-        <section class="composition-box">
+        <section class="composition-box main-content">
             <form method="post" action="/make-post">
                 <div class="composition-user">
                     <select name="post-as" class="user-select">
@@ -34,30 +32,24 @@
             </form>
         </section>
         <section class="feed">
-
-            <div class="post">
+            <div class="post main-content">
                 <div class="post-body">
                     <img src="" alt="User" class="profile-picture"/>
                     <p class="name">Joe Bloggs</p>
                     <p class="post-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non viverra lacus. Morbi finibus rutrum tristique. Ut vestibulum facilisis turpis, at feugiat ipsum euismod ut. Sed vitae viverra metus, a consectetur erat. Duis id fringilla arcu. Praesent nisl ex, efficitur eget sollicitudin ut, hendrerit a libero. Aenean venenatis ligula a.</p>
                 </div>
-           </div>
+            </div>
+            <div class="post main-content">
+                <div class="post-body">
+                    <img src="" alt="User" class="profile-picture"/>
+                    <p class="name">Joe Bloggs</p>
+                    <p class="post-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non viverra lacus. Morbi finibus rutrum tristique. Ut vestibulum facilisis turpis, at feugiat ipsum euismod ut. Sed vitae viverra metus, a consectetur erat. Duis id fringilla arcu. Praesent nisl ex, efficitur eget sollicitudin ut, hendrerit a libero. Aenean venenatis ligula a.</p>
+                </div>
+            </div>
         </section>
 
-        <form action =" "
-          <h3> Create post: </h3><br>
-
-          <textarea rows= "10" cols ="30" name="post" value="My fake post"></textarea>
-          <br>
-          <input type="submit" value="Post">
-        </form>
-
-        <script>
-        <textarea
-        $(id).click(function() {
-      //  fetchposts();
-          console.log("text");
-        });
-        </script>
     </main>
+    <script>
+    $("body").onclick(function() {})
+    </script>
 </body>
