@@ -114,6 +114,32 @@ header {
     padding: 10px;
 }
 
+#postingBackground {
+	display: none;
+	opacity: 0.6;
+	background-color: #000000;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 300;
+}
+
+/*#composition-content:focus + #postingBackground {
+	display: block;
+	color: #009900;
+}
+
+#composition-content:focus {
+	#postingBackground {
+		display: block;
+	}
+	z-index: 310;
+	color: #990000;
+	box-shadow: 10px 10px 10px;
+}*/
+
 @media screen and (min-width: 1000px) {
     main, .header-content {
         width: 800px;

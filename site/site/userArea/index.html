@@ -26,8 +26,9 @@
                     </select>
                 </div>
                 <div class="composition-content">
-                    <textarea id="composition-content" name="content" class="post-text" placeholder="What's on Joe Blogg's mind?"></textarea>
-                </div>
+                    <textarea id="composition-content" name="content" class="post-text" onFocus="focusOnCompositionContent()" placeholder="What's on Joe Blogg's mind?"></textarea>
+					<div id="postingBackground"></div>
+				</div>
                 <div class="composition-send">
                     <input class="post-submit" type="submit"/>
                 </div>
@@ -51,6 +52,10 @@
 			console.log(selecter);
 			var selectedName = selecter.options[selecter.selectedIndex].text;
 			document.getElementById('composition-content').placeholder = 'What\'s on ' + selectedName + '\'s mind?';
+		}
+
+		function focusOnCompositionContent(){
+			
 		}
 	</script>
     <script>
