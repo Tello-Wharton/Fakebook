@@ -13,7 +13,6 @@ window.fbAsyncInit = function() {
 	FB.AppEvents.logPageView();
 
 	checkLoginState();
-	fillDropDownFromIDs(list_ids);
 };
 
 /**
@@ -61,7 +60,6 @@ function insertUsersInfos(){
 function registerUser(id){
 	FB.api('/' + id + '?fields=id,name', function(response) {
 		$.post('/../add-user', {id: response.id, name: response.name}, function(data){
-			console.log(data);
 			window.location = '/userArea/';
 		});
 	});
@@ -70,17 +68,13 @@ function registerUser(id){
 /**
  * Find the 'post as' drop down menu and populate it with names
  */
-function fillDropDownFromIDs(list_ids){
-	console.log('test');
-	document.getElementById('fb-peeps').options.length = 0;
-	for(var list_id in list_ids){
-		console.log('About to ask FB for info on ' + list_id);
+function fillDropDownFromIDs(post_as_ids){
+	for(var list_id in post_as_ids){
 		FB.api('/' + list_id + '?fields=id,name', function(response){
-			console.log('FB gave us some info! id: ' + response.id + ', name: ' + response.name);
 			var sel = document.getElementById('fb-peeps');
 			var opt = document.createElement('option');
 			opt.innerHTML = response.name;
-			opt.value = list_id;
+			opt.value = response.id;
 			sel.appendChild(opt);
 		});
 	}
@@ -97,6 +91,7 @@ function statusChangeCallback(response){
 			//Tell user that they're logged in
 			//document.getElementById('fbStatus').innerHTML = 'You are logged in to Facebook and Fakebook!';
 			insertUsersInfos();
+			fillDropDownFromIDs(list_ids);
 		} else{
 			//If logged in and on the login page
 			registerUser(response.authResponse.userID);
