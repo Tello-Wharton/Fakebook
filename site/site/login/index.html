@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Fakebook | Login</title>
+		<meta charset="utf-8"/>
+
+	    <link rel="stylesheet" href="/css/general.css"/>
+		<script src="/scripts/jquery-3.1.1.js"></script>
+	</head>
+	<body>
+		<script src="/scripts/fbLogin.js"></script>
+		<header>
+	        <div class="header-content">
+	            <img src="/images/fakebook-icon.png" alt="Fakebook"/>
+	            <div class="header-text"/>
+	                <h1>Fakebook</h1>
+	                <p class="subtitle">Fake it with your friends</p>
+	            </div>
+	        </div>
+	    </header>
+		<main>
+	        <section class="composition-box main-content">
+				<h1>Log in</h1>
+				<p>Please log in to Fakebook using Facebook</p>
+				<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false" data-scope="public_profile" onLogin="checkLoginState()"></div>
+			</section>
+		</main>
+	</body>
+</html>

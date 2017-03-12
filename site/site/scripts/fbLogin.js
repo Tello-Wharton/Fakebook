@@ -42,10 +42,8 @@ function checkLoginState(){
  * @arg id The facebook app id of the user whose info you want retrieving
  */
 function insertUsersInfos(){
-	console.log('list of ids: ' + ids);
 	for(var i = 0; i < ids.length; i++){
 		FB.api('/' + ids[i] + '?fields=id,name,picture', function(response) {
-			console.log('id is ' + response.id + ', name: ' + response.name);
 			var names = document.getElementsByClassName('fbName-' + response.id);
 			var pictures = document.getElementsByClassName('fbPicture-' + response.id);
 			for(var j = 0; j < names.length; j++){
@@ -58,9 +56,9 @@ function insertUsersInfos(){
 
 function registerUser(id){
 	FB.api('/' + id + '?fields=id,name', function(response) {
-		$.post("add-user", {id: response.id, name: response.name}, function(data){
+		$.post("/add-user", {id: response.id, name: response.name}, function(data){
 			console.log(data);
-			window.location = '/';
+			window.location = '/userArea';
 		});
 	});
 }
@@ -70,19 +68,21 @@ function registerUser(id){
  * @arg response The response object from checking the Facebook login
  */
 function statusChangeCallback(response){
+	console.log(window.location.pathname);
 	if(response.status === 'connected'){
-		if(!(window.location.pathname === '/login.html')){
+		if(!(window.location.pathname === '/login/')){
 			//If logged in and not on the login page
-			document.getElementById('fbStatus').innerHTML = 'You are logged in to Facebook and Fakebook!';
+			//Tell user that they're logged in
+			//document.getElementById('fbStatus').innerHTML = 'You are logged in to Facebook and Fakebook!';
 			insertUsersInfos();
 		} else{
 			//If logged in and on the login page
 			registerUser(response.authResponse.userID);
-			//window.location = '/';
+			window.location = '/userArea/';
 		}
 	} else{
-		if(!(window.location.pathname === '/login.html')){
-			window.location = 'login.html';
+		if(!(window.location.pathname === '/login/')){
+			window.location = '/login/';
 		}
 	}
 }
