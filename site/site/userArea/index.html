@@ -84,16 +84,11 @@
         }
 
         $(".searchfeed").bind("DOMSubtreeModified",function(){
-            console.log("help");
             insertUsersInfos();
         });
 
         //The stuff that call it is underneath
         var updateFeed = function(){
-			var d = new Date();
-			console.log('updating -> ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
-
-
             $.get("/feed", function(response) {
 				ids = [];
                 var newFeedHtml = "";
