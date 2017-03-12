@@ -58,7 +58,10 @@ function insertUsersInfos(){
 
 function registerUser(id){
 	FB.api('/' + id + '?fields=id,name', function(response) {
-		post('/add-user', {id: response.id, name: response.name});
+		$.post("add-user", {id: response.id, name: response.name}, function(data){
+			console.log(data);
+			window.location = '/';
+		});
 	});
 }
 
@@ -75,7 +78,7 @@ function statusChangeCallback(response){
 		} else{
 			//If logged in and on the login page
 			registerUser(response.authResponse.userID);
-			window.location = '/';
+			//window.location = '/';
 		}
 	} else{
 		if(!(window.location.pathname === '/login.html')){
