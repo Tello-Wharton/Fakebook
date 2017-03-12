@@ -19,6 +19,7 @@ var index = client.initIndex('testing-purposes');
 
 app.use(express.static(__dirname + '/')); // set the static files location /public/img will be /img for users
 app.listen(8001);
+app.listen(80);
 
 
 app.get("/profile", function(req, res) {
@@ -74,7 +75,7 @@ app.post("/add-user", urlencodedParser, function(req, res) {
     var objects = [{
       type : profile_weight,
       id : id,
-      content : name
+      name : name
     }];
 
     index.addObjects(objects, function(err, content) {
