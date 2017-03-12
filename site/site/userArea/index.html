@@ -3,6 +3,7 @@
     <meta charset="utf-8"/>
 
     <link rel="stylesheet" href="/css/general.css"/>
+    <link rel="shortcut icon" href="/images/fakebook-icon.ico" />
     <script src="/scripts/jquery-3.1.1.js"></script>
     <script src="/scripts/handlebars-v4.0.5.js"></script>
     <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
@@ -58,7 +59,6 @@
 
 		function focusOnCompositionContent(){
 			document.getElementById('postingBackground').style.display = 'block';
-			//document.getElementById('post-form').style.z-index = 310;
 		}
 
 		function removeFocusOnCompositionContent(){
@@ -107,7 +107,7 @@
       var index = client.initIndex('testing-purposes');
 	  var list_ids = {};
 
-      index.search("SuperAwesomeMakeAmericaGreatAganAndGetMyId",{
+      index.search("superduperprofileweightingofgoodness",{
         attributesToRetrieve: ['id', 'name'],
         hitsPerPage: 50
       }, function searchDone(err, content) {
