@@ -1,4 +1,4 @@
-ids = [];
+idsToInsert = [];
 
 /**
  * Connects to facebook asynchronously
@@ -43,12 +43,12 @@ function checkLoginState(){
  * @arg id The facebook app id of the user whose info you want retrieving
  */
 function insertUsersInfos(){
-	for(var i = 0; i < ids.length; i++){
-		FB.api('/' + ids[i] + '?fields=id,name,picture', function(response) {
+	for(var i = 0; i < idsToInsert.length; i++){
+		FB.api('/' + idsToInsert[i] + '?fields=id,name,picture', function(response) {
 			var names = document.getElementsByClassName('fbName-' + response.id);
 			var pictures = document.getElementsByClassName('fbPicture-' + response.id);
 			for(var j = 0; j < names.length; j++){
-				names[j].innerHTML = 'Hello, ' + response.name + '!';
+				names[j].innerHTML = response.name;
 				pictures[j].src = '' + response.picture.data.url;
 			}
 		});
@@ -60,7 +60,7 @@ function insertUsersInfos(){
  */
 function registerUser(id){
 	FB.api('/' + id + '?fields=id,name', function(response) {
-		$.post("/../add-user", {id: response.id, name: response.name}, function(data){
+		$.post('/../add-user', {id: response.id, name: response.name}, function(data){
 			console.log(data);
 			window.location = '/userArea/';
 		});
@@ -68,11 +68,15 @@ function registerUser(id){
 }
 
 /**
- * find the 'post as' drop down menu and populate it with names
+ * Find the 'post as' drop down menu and populate it with names
  */
 function fillDropDownFromIDs(list_ids){
+	console.log('test');
+	document.getElementById('fb-peeps').options.length = 0;
 	for(var list_id in list_ids){
+		console.log('About to ask FB for info on ' + list_id);
 		FB.api('/' + list_id + '?fields=id,name', function(response){
+			console.log('FB gave us some info! id: ' + response.id + ', name: ' + response.name);
 			var sel = document.getElementById('fb-peeps');
 			var opt = document.createElement('option');
 			opt.innerHTML = response.name;
@@ -105,8 +109,8 @@ function statusChangeCallback(response){
 }
 
 function addIDToBeInserted(id){
-	if(!ids.contains(id)){
-		ids.push(id);
+	if(!idsToInsert.contains(id)){
+		idsToInsert.push(id);
 	}
 }
 
