@@ -78,7 +78,7 @@ header {
 .post-submit {
     background: #3b5998;
     color: white;
-    padding: 2px;
+    padding: 2px 15px;
     border-style: solid;
     border-color: white;
     border-radius: 2px;
@@ -147,9 +147,10 @@ header {
 	#postingBackground {
 		display: block;
 	}
+
+.highlight {
+	position: relative;
 	z-index: 310;
-	color: #990000;
-	box-shadow: 10px 10px 10px;
 }*/
 
 @media screen and (min-width: 1000px) {

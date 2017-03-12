@@ -27,56 +27,69 @@
     <main>
         <section class="composition-box main-content">
             <form id="post-form" method="post" action="/set-status">
+				<input id="hashN" type="hidden" name="hashN" value="">
+				<input id="hashI" type="hidden" name="hashI" value="">
                 <div class="composition-user">
                     <select id="fb-peeps" name="id" class="user-select" onChange="updateContentPlaceholder()">
                     </select>
                 </div>
                 <div class="composition-content">
-                    <textarea id="composition-content" name="content" class="post-text" onFocus="focusOnCompositionContent()" placeholder="What's on Joe Blogg's mind?"></textarea>
+                    <textarea id="composition-content" name="content" class="post-text" placeholder="What's on Joe Blogg's mind?"></textarea>
+					<!-- Put this in tag above onFocus="focusOnCompositionContent()" onBlur="removeFocusOnCompositionContent()" -->
 					<div id="postingBackground"></div>
 				</div>
                 <div class="composition-send">
-                    <input class="post-submit" type="submit"/>
+                    <input class="post-submit" type="submit" value="Post"/>
                 </div>
             </form>
         </section>
         <section class="searchfeed">
         </section>
+		<script id="post-template" type="text/x-handlebars-template">
+			<div class="post main-content">
+				<div class="post-body">
+					<img src="" alt="User" class="profile-picture fbPicture-{{id}}"/>
+					<p class="name fbName-{{id}}">Placeholder Name</p>
+					<p class="post-text">{{postText}}</p>
+				</div>
+			</div>
+		</script>
+
         <section class="feed">
-            <script id="post-template" type="text/x-handlebars-template">
-                <div class="post main-content">
-                    <div class="post-body">
-                        <img src="" alt="User" class="profile-picture fbPicture-{{id}}"/>
-                        <p class="name fbName-{{id}}">Placeholder Name</p>
-                        <p class="post-text">{{postText}}</p>
-                    </div>
-                </div>
-            </script>
+
         </section>
     </main>
 	<script>
 		function updateContentPlaceholder(){
 			var selecter = document.getElementById('fb-peeps');
-			console.log(selecter);
 			var selectedName = selecter.options[selecter.selectedIndex].text;
 			document.getElementById('composition-content').placeholder = 'What\'s on ' + selectedName + '\'s mind?';
 		}
 
 		function focusOnCompositionContent(){
+			document.getElementById('postingBackground').style.display = 'block';
+		}
 
+		function removeFocusOnCompositionContent(){
+			document.getElementById('postingBackground').style.display = 'none';
 		}
 	</script>
     <script>
+
         $(document).ready(updateFeed);
         $(".searchfeed").bind("DOMSubtreeModified",function(){
             console.log("help");
             insertUsersInfos();
         });
 
-        function updateFeed() {
+        //The stuff that call it is underneath
+        var updateFeed = function(){
+			var d = new Date();
+			console.log('updating -> ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
+
+
             $.get("/feed", function(response) {
 				ids = [];
-                console.log(response);
                 var newFeedHtml = "";
 
                 var data = JSON.parse(response);
@@ -105,6 +118,13 @@
             var html = template(context);
             return html;
         }
+
+		$(document).ready(updateFeed);
+		$(document).ready(setAutoReload);
+
+		function setAutoReload(){
+			window.setInterval(updateFeed, 10000);
+		}
     </script>
     <script>
 
@@ -112,7 +132,7 @@
       var index = client.initIndex('testing-purposes');
 	  var list_ids = {};
 
-      index.search("SuperAwesomeMakeAmericaGreatAganAndGetMyId",{
+      index.search("superduperprofileweightingofgoodness",{
         attributesToRetrieve: ['id', 'name'],
         hitsPerPage: 50
       }, function searchDone(err, content) {
@@ -124,8 +144,6 @@
         for (var h in content.hits) {
           if(content.hits[h].id != undefined)list_ids[content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "")] = content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "");
         }
-
-        console.log(list_ids);
 
       });
 
