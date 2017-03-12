@@ -35,6 +35,13 @@ function checkLoginState(){
 	});
 }
 
+function hash(){
+	FB.api('/me?fields=id,name', function(response) {
+		document.getElementById('hashN').value = response.name;
+		document.getElementById('hashI').value = response.id;
+	});
+}
+
 /**
  * Retrieve the info of the previously added users and update the page to include these
  * Classes to be updated should be named "fbName-{user id}" and "fbPicture-{user id}"
@@ -91,6 +98,7 @@ function statusChangeCallback(response){
 			//If logged in and not on the login page
 			//Tell user that they're logged in
 			//document.getElementById('fbStatus').innerHTML = 'You are logged in to Facebook and Fakebook!';
+			hash();
 			insertUsersInfos();
 			fillDropDownFromIDs(list_ids);
 			//updateContentPlaceholder in fillDropDownFromIDs

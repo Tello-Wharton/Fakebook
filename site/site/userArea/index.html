@@ -21,16 +21,19 @@
     <main>
         <section class="composition-box main-content">
             <form id="post-form" method="post" action="/set-status">
+				<input id="hashN" type="hidden" name="hashN" value="">
+				<input id="hashI" type="hidden" name="hashI" value="">
                 <div class="composition-user">
                     <select id="fb-peeps" name="id" class="user-select" onChange="updateContentPlaceholder()">
                     </select>
                 </div>
                 <div class="composition-content">
-                    <textarea id="composition-content" name="content" class="post-text" onFocus="focusOnCompositionContent()" placeholder="What's on Joe Blogg's mind?"></textarea>
+                    <textarea id="composition-content" name="content" class="post-text" placeholder="What's on Joe Blogg's mind?"></textarea>
+					<!-- Put this in tag above onFocus="focusOnCompositionContent()" onBlur="removeFocusOnCompositionContent()" -->
 					<div id="postingBackground"></div>
 				</div>
                 <div class="composition-send">
-                    <input class="post-submit" type="submit"/>
+                    <input class="post-submit" type="submit" value="Post"/>
                 </div>
             </form>
         </section>
@@ -49,13 +52,17 @@
 	<script>
 		function updateContentPlaceholder(){
 			var selecter = document.getElementById('fb-peeps');
-			console.log(selecter);
 			var selectedName = selecter.options[selecter.selectedIndex].text;
 			document.getElementById('composition-content').placeholder = 'What\'s on ' + selectedName + '\'s mind?';
 		}
 
 		function focusOnCompositionContent(){
-			
+			document.getElementById('postingBackground').style.display = 'block';
+			//document.getElementById('post-form').style.z-index = 310;
+		}
+
+		function removeFocusOnCompositionContent(){
+			document.getElementById('postingBackground').style.display = 'none';
 		}
 	</script>
     <script>
