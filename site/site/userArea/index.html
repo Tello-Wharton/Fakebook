@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="/css/general.css"/>
     <script src="/scripts/jquery-3.1.1.js"></script>
     <script src="/scripts/handlebars-v4.0.5.js"></script>
+    <script src="./jquery.textcomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
 </head>
 <body>
     <header>
@@ -17,6 +19,9 @@
         </div>
     </header>
     <main>
+        <section>
+          <textarea class="form-control" rows="5" id="autocomplete-textarea"></textarea>
+        </section>
         <section class="composition-box main-content">
             <form id="post-form" method="post" action="/set-status">
                 <div class="composition-user">
@@ -75,5 +80,66 @@
             var html = template(context);
             return html;
         }
+    </script>
+    <script>
+      /**
+      var client = algoliasearch('TRSE7O3IIG', '883a415024ea2e75c8451da21a42d077');
+      var index = client.initIndex('testing-purposes');
+
+      index.search('Daddy',{
+        attributesToRetrieve: ['name'],
+        hitsPerPage: 50
+      }, function searchDone(err, content) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+
+        for (var h in content.hits) {
+          console.log('Hit(' + content.hits[h].objectID + '): ' + content.hits[h].toString());
+        }
+      });
+
+      **/
+
+      var ALGOLIA_APPID = 'TRSE7O3IIG';
+      var ALGOLIA_SEARCH_APIKEY = '883a415024ea2e75c8451da21a42d077';
+      var ALGOLIA_INDEX_NAME = 'testing-purposes';
+      var NB_RESULTS_DISPLAYED = 5;
+      // #2- Algolia API Client Initialization
+      var algoliaClient = new algoliasearch(ALGOLIA_APPID, ALGOLIA_SEARCH_APIKEY);
+      var index = algoliaClient.initIndex(ALGOLIA_INDEX_NAME);
+      var lastQuery = '';
+      $('#autocomplete-textarea').textcomplete([
+        {
+          // #3 - Regular expression used to trigger the autocomplete dropdown
+          match: /(^|\s)@(\w*(?:\s*\w*))$/,
+          // #4 - Function called at every new keystroke
+          search: function(query, callback) {
+            lastQuery = query;
+            index.search(lastQuery, { hitsPerPage: NB_RESULTS_DISPLAYED })
+              .then(function searchSuccess(content) {
+                if (content.query === lastQuery) {
+                  callback(content.hits);
+                }
+              })
+              .catch(function searchFailure(err) {
+                console.error(err);
+              });
+          },
+          // #5 - Template used to display each result obtained by the Algolia API
+          template: function (hit) {
+            // Returns the highlighted version of the name attribute
+            return hit._highlightResult.name.value;
+          },
+          // #6 - Template used to display the selected result in the textarea
+          replace: function (hit) {
+            return ' @' + hit.name.trim() + ' ';
+          }
+        }
+      ], {
+        footer: '&lt;div style="text-align: center; display: block; font-size:12px; margin: 5px 0 0 0;"&gt;Powered by &lt;a href="http://www.algolia.com"&gt;&lt;img src="https://www.algolia.com/assets/algolia128x40.png" style="height: 14px;" /&gt;&lt;/a&gt;&lt;/div&gt;'
+      });
+
     </script>
 </body>
