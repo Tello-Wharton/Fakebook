@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="/css/general.css"/>
     <script src="/scripts/jquery-3.1.1.js"></script>
     <script src="/scripts/handlebars-v4.0.5.js"></script>
-    <script src="./jquery.textcomplete.min.js"></script>
     <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
 </head>
 <body>
@@ -20,9 +19,6 @@
         </div>
     </header>
     <main>
-        <section>
-          <textarea class="form-control" rows="5" id="autocomplete-textarea"></textarea>
-        </section>
         <section class="composition-box main-content">
             <form id="post-form" method="post" action="/set-status">
                 <div class="composition-user">
@@ -83,12 +79,12 @@
         }
     </script>
     <script>
-      /**
+
       var client = algoliasearch('TRSE7O3IIG', '883a415024ea2e75c8451da21a42d077');
       var index = client.initIndex('testing-purposes');
 
-      index.search('Daddy',{
-        attributesToRetrieve: ['name'],
+      index.search("SuperAwesomeMakeAmericaGreatAganAndGetMyId",{
+        attributesToRetrieve: ['id', 'name'],
         hitsPerPage: 50
       }, function searchDone(err, content) {
         if (err) {
@@ -96,13 +92,29 @@
           return;
         }
 
+        var list_ids = {};
+
         for (var h in content.hits) {
           console.log('Hit(' + content.hits[h].objectID + '): ' + content.hits[h].toString());
+          console.log(list_ids);
+          if(content.hits[h].id != undefined)list_ids[content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "")] = content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "");
         }
+
+        console.log(list_ids);
+
+        /*
+        var sel = document.getElementById('CuisineList');
+          for(var i = 0; i < cuisines.length; i++) {
+              var opt = document.createElement('option');
+              opt.innerHTML = cuisines[i];
+              opt.value = cuisines[i];
+              sel.appendChild(opt);
+          }
+          */
       });
 
-      **/
 
+      /**
       var ALGOLIA_APPID = 'TRSE7O3IIG';
       var ALGOLIA_SEARCH_APIKEY = '883a415024ea2e75c8451da21a42d077';
       var ALGOLIA_INDEX_NAME = 'testing-purposes';
@@ -117,14 +129,19 @@
           match: /(^|\s)@(\w*(?:\s*\w*))$/,
           // #4 - Function called at every new keystroke
           search: function(query, callback) {
+            console.log("cake1");
             lastQuery = query;
             index.search(lastQuery, { hitsPerPage: NB_RESULTS_DISPLAYED })
               .then(function searchSuccess(content) {
+
                 if (content.query === lastQuery) {
+
                   callback(content.hits);
                 }
               })
               .catch(function searchFailure(err) {
+                console.log("cake");
+
                 console.error(err);
               });
           },
@@ -141,6 +158,7 @@
       ], {
         footer: '&lt;div style="text-align: center; display: block; font-size:12px; margin: 5px 0 0 0;"&gt;Powered by &lt;a href="http://www.algolia.com"&gt;&lt;img src="https://www.algolia.com/assets/algolia128x40.png" style="height: 14px;" /&gt;&lt;/a&gt;&lt;/div&gt;'
       });
+      **/
 
     </script>
 </body>
