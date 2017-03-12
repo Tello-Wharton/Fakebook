@@ -71,7 +71,6 @@
         function updateFeed() {
             $.get("/feed", function(response) {
 				ids = [];
-                console.log(response);
                 var newFeedHtml = "";
 
                 var data = JSON.parse(response);
@@ -119,8 +118,6 @@
         for (var h in content.hits) {
           if(content.hits[h].id != undefined)list_ids[content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "")] = content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "");
         }
-
-        console.log(list_ids);
 
       });
 
