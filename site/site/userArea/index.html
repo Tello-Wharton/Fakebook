@@ -7,9 +7,11 @@
     <script src="/scripts/jquery-3.1.1.js"></script>
     <script src="/scripts/handlebars-v4.0.5.js"></script>
     <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.js"></script>
 </head>
 <body>
 	<script src="/scripts/fbLogin.js"></script>
+
     <header>
         <div class="header-content">
             <img src="/images/fakebook-icon.png" alt="Fakebook"/>
@@ -18,7 +20,7 @@
                 <p class="subtitle">Fake it with your friends</p>
             </div>
             <div class="header-search">
-                <input type="text"/>
+                <input id="q" type="text"/>
             </div>
         </div>
     </header>
@@ -37,6 +39,8 @@
                     <input class="post-submit" type="submit"/>
                 </div>
             </form>
+        </section>
+        <section class="searchfeed">
         </section>
         <section class="feed">
             <script id="post-template" type="text/x-handlebars-template">
@@ -64,6 +68,10 @@
 	</script>
     <script>
         $(document).ready(updateFeed);
+        $(".searchfeed").bind("DOMSubtreeModified",function(){
+            console.log("help");
+            insertUsersInfos();
+        });
 
         function updateFeed() {
             $.get("/feed", function(response) {
@@ -169,4 +177,5 @@
       **/
 
     </script>
+        <script src="/scripts/search.js"></script>
 </body>
