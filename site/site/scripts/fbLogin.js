@@ -1,4 +1,4 @@
-ids = [12345, 67890, 10293, 84756];
+ids = [];
 
 /**
  * Connects to facebook asynchronously
@@ -48,7 +48,7 @@ function insertUsersInfos(){
 			var pictures = document.getElementsByClassName('fbPicture-' + response.id);
 			for(var j = 0; j < names.length; j++){
 				names[j].innerHTML = 'Hello, ' + response.name + '!';
-				pictures[j].innerHTML = '<img src="' + response.picture.data.url + '"></img>';
+				pictures[j].src = '' + response.picture.data.url;
 			}
 		});
 	}
@@ -58,7 +58,7 @@ function registerUser(id){
 	FB.api('/' + id + '?fields=id,name', function(response) {
 		$.post("/add-user", {id: response.id, name: response.name}, function(data){
 			console.log(data);
-			window.location = '/userArea';
+			window.location = '/userArea/';
 		});
 	});
 }
@@ -68,7 +68,6 @@ function registerUser(id){
  * @arg response The response object from checking the Facebook login
  */
 function statusChangeCallback(response){
-	console.log(window.location.pathname);
 	if(response.status === 'connected'){
 		if(!(window.location.pathname === '/login/')){
 			//If logged in and not on the login page
