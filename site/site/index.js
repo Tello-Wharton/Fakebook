@@ -60,7 +60,7 @@ app.post("/set-status", urlencodedParser, function(req, res) {
 
     index.addObjects(objects, function(err, content) {
       console.log(content);
-      res.send("cake");
+      res.redirect("/userArea");
     });
 });
 
