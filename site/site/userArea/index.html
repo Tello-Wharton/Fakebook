@@ -100,12 +100,14 @@
 
                 var data = JSON.parse(response);
                 for(var i = data.length-1; i >= 0; i--) {
-                    var postObject = data[i];
-                    var postHtml = makePostHtml(postObject);
+					if(!isNaN(data[i].id)){
+						var postObject = data[i];
+	                    var postHtml = makePostHtml(postObject);
 
-                    newFeedHtml = postHtml + newFeedHtml;
+	                    newFeedHtml = postHtml + newFeedHtml;
 
-					addIDToBeInserted(data[i].id);
+						addIDToBeInserted(data[i].id);
+					}
                 }
 
                 $(".feed").html(newFeedHtml);
