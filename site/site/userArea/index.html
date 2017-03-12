@@ -77,6 +77,12 @@
     <script>
 
         $(document).ready(updateFeed);
+        $(document).ready(hideSearchResults);
+
+        function hideSearchResults() {
+            $(".searchfeed").hide();
+        }
+
         $(".searchfeed").bind("DOMSubtreeModified",function(){
             console.log("help");
             insertUsersInfos();

@@ -42,6 +42,12 @@ search.addWidget(
     },
     transformData: function(hit) {
       hit.id = hit.id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "");
+      if($("#q").val().trim() != "") {
+          $(".searchfeed").show();
+      }
+      else {
+          $(".searchfeed").hide();
+      }
       return hit;
     }
   })
