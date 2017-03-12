@@ -22,11 +22,11 @@
         <section class="composition-box main-content">
             <form id="post-form" method="post" action="/set-status">
                 <div class="composition-user">
-                    <select id="fb-peeps" name="id" class="user-select">
+                    <select id="fb-peeps" name="id" class="user-select" onChange="updateContentPlaceholder()">
                     </select>
                 </div>
                 <div class="composition-content">
-                    <textarea name="content" class="post-text" placeholder="What's on Joe Blogg's mind?"></textarea>
+                    <textarea id="composition-content" name="content" class="post-text" placeholder="What's on Joe Blogg's mind?"></textarea>
                 </div>
                 <div class="composition-send">
                     <input class="post-submit" type="submit"/>
@@ -44,8 +44,15 @@
                 </div>
             </script>
         </section>
-
     </main>
+	<script>
+		function updateContentPlaceholder(){
+			var selecter = document.getElementById('fb-peeps');
+			console.log(selecter);
+			var selectedName = selecter.options[selecter.selectedIndex].text;
+			document.getElementById('composition-content').placeholder = 'What\'s on ' + selectedName + '\'s mind?';
+		}
+	</script>
     <script>
         $(document).ready(updateFeed);
 

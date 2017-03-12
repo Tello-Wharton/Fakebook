@@ -76,6 +76,7 @@ function fillDropDownFromIDs(post_as_ids){
 			opt.innerHTML = response.name;
 			opt.value = response.id;
 			sel.appendChild(opt);
+			updateContentPlaceholder();
 		});
 	}
 }
@@ -92,6 +93,7 @@ function statusChangeCallback(response){
 			//document.getElementById('fbStatus').innerHTML = 'You are logged in to Facebook and Fakebook!';
 			insertUsersInfos();
 			fillDropDownFromIDs(list_ids);
+			//updateContentPlaceholder in fillDropDownFromIDs
 		} else{
 			//If logged in and on the login page
 			registerUser(response.authResponse.userID);
