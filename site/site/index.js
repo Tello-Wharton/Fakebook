@@ -11,6 +11,7 @@ client.deleteIndex("testing-purposes");
 
 var id_weight = "SuperAwesomeMakeAmericaGreatAganAndGetMyId";
 var post_weight = "amazingnotterriblepostidentifyer";
+var profile_weight = "superduperprofileweightingofgoodness";
 
 var index = client.initIndex('testing-purposes');
 
@@ -56,6 +57,23 @@ app.post("/set-status", urlencodedParser, function(req, res) {
       id : id,
       content : content,
       time : Date.now()
+    }];
+
+    index.addObjects(objects, function(err, content) {
+      console.log(content);
+      res.send("cake");
+    });
+});
+
+app.post("/add-user", urlencodedParser, function(req, res) {
+    console.log(req.body.id);
+    var id = id_weight + req.body.id;
+    var name = req.body.name;
+
+    var objects = [{
+      type : profile_weight,
+      id : id,
+      content : name
     }];
 
     index.addObjects(objects, function(err, content) {
