@@ -73,7 +73,7 @@ app.post("/add-user", urlencodedParser, function(req, res) {
     var objects = [{
       type : profile_weight,
       id : id,
-      content : name
+      name : name
     }];
 
     index.addObjects(objects, function(err, content) {
