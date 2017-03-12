@@ -87,6 +87,7 @@
 
       var client = algoliasearch('TRSE7O3IIG', '883a415024ea2e75c8451da21a42d077');
       var index = client.initIndex('testing-purposes');
+	  var list_ids = {};
 
       index.search("SuperAwesomeMakeAmericaGreatAganAndGetMyId",{
         attributesToRetrieve: ['id', 'name'],
@@ -97,24 +98,11 @@
           return;
         }
 
-        var list_ids = {};
-
         for (var h in content.hits) {
-          console.log('Hit(' + content.hits[h].objectID + '): ' + content.hits[h].toString());
-          console.log(list_ids);
           if(content.hits[h].id != undefined)list_ids[content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "")] = content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "");
         }
 
         console.log(list_ids);
-
-
-        var sel = document.getElementById('fb-peeps');
-        for(var list_id in list_ids) {
-            var opt = document.createElement('option');
-            opt.innerHTML = "cake";
-            opt.value = list_id;
-            sel.appendChild(opt);
-        }
 
       });
 

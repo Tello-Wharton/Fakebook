@@ -66,6 +66,7 @@ app.post("/set-status", urlencodedParser, function(req, res) {
 });
 
 app.post("/add-user", urlencodedParser, function(req, res) {
+	console.log('cake');
     console.log(req.body.id);
     var id = id_weight + req.body.id;
     var name = req.body.name;

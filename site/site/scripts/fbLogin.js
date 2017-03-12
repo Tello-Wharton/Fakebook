@@ -13,6 +13,7 @@ window.fbAsyncInit = function() {
 	FB.AppEvents.logPageView();
 
 	checkLoginState();
+	fillDropDownFromIDs(list_ids);
 };
 
 /**
@@ -54,13 +55,31 @@ function insertUsersInfos(){
 	}
 }
 
+/**
+ * Makes a post request telling the server to add a new user to the system
+ */
 function registerUser(id){
 	FB.api('/' + id + '?fields=id,name', function(response) {
-		$.post("/add-user", {id: response.id, name: response.name}, function(data){
+		$.post("/../add-user", {id: response.id, name: response.name}, function(data){
 			console.log(data);
 			window.location = '/userArea/';
 		});
 	});
+}
+
+/**
+ * find the 'post as' drop down menu and populate it with names
+ */
+function fillDropDownFromIDs(list_ids){
+	for(var list_id in list_ids){
+		FB.api('/' + list_id + '?fields=id,name', function(response){
+			var sel = document.getElementById('fb-peeps');
+			var opt = document.createElement('option');
+			opt.innerHTML = response.name;
+			opt.value = list_id;
+			sel.appendChild(opt);
+		});
+	}
 }
 
 /**
@@ -77,7 +96,6 @@ function statusChangeCallback(response){
 		} else{
 			//If logged in and on the login page
 			registerUser(response.authResponse.userID);
-			window.location = '/userArea/';
 		}
 	} else{
 		if(!(window.location.pathname === '/login/')){
@@ -90,7 +108,6 @@ function addIDToBeInserted(id){
 	if(!ids.contains(id)){
 		ids.push(id);
 	}
-	console.log(ids);
 }
 
 /**
