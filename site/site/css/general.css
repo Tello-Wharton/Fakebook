@@ -126,10 +126,32 @@ header {
 	z-index: 300;
 }
 
+.header-search {
+    float: right;
+    margin-top: 25px;
+    width: 50%;
+    margin-right: 10%;
+}
+
+.header-search input {
+    height: 25px;
+    width: 100%;
+}
+
+/*#composition-content:focus + #postingBackground {
+	display: block;
+	color: #009900;
+}
+
+#composition-content:focus {
+	#postingBackground {
+		display: block;
+	}
+
 .highlight {
 	position: relative;
 	z-index: 310;
-}
+}*/
 
 @media screen and (min-width: 1000px) {
     main, .header-content {

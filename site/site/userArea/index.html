@@ -7,15 +7,20 @@
     <script src="/scripts/jquery-3.1.1.js"></script>
     <script src="/scripts/handlebars-v4.0.5.js"></script>
     <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.js"></script>
 </head>
 <body>
 	<script src="/scripts/fbLogin.js"></script>
+
     <header>
         <div class="header-content">
             <img src="/images/fakebook-icon.png" alt="Fakebook"/>
             <div class="header-text"/>
                 <h1>Fakebook</h1>
                 <p class="subtitle">Fake it with your friends</p>
+            </div>
+            <div class="header-search">
+                <input id="q" type="text"/>
             </div>
         </div>
     </header>
@@ -38,9 +43,8 @@
                 </div>
             </form>
         </section>
-
-
-
+        <section class="searchfeed">
+        </section>
 		<script id="post-template" type="text/x-handlebars-template">
 			<div class="post main-content">
 				<div class="post-body">
@@ -50,8 +54,6 @@
 				</div>
 			</div>
 		</script>
-
-
 
         <section class="feed">
 
@@ -73,10 +75,18 @@
 		}
 	</script>
     <script>
+
+        $(document).ready(updateFeed);
+        $(".searchfeed").bind("DOMSubtreeModified",function(){
+            console.log("help");
+            insertUsersInfos();
+        });
+
         //The stuff that call it is underneath
         var updateFeed = function(){
 			var d = new Date();
 			console.log('updating -> ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
+
 
             $.get("/feed", function(response) {
 				ids = [];
@@ -189,4 +199,5 @@
       **/
 
     </script>
+        <script src="/scripts/search.js"></script>
 </body>
