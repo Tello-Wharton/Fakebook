@@ -94,8 +94,6 @@
 
                 var data = JSON.parse(response);
                 for(var i = data.length-1; i >= 0; i--) {
-
-					console.log(data[i]);
 					if(!isNaN(data[i].id)){
 						var postObject = data[i];
 	                    var postHtml = makePostHtml(postObject);
