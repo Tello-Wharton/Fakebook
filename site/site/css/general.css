@@ -12,6 +12,11 @@ body {
     background: #e9ebee;
 }
 
+em {
+    color: #3b5998;
+    font-weight: bold;
+}
+
 main, .header-content {
     width: 100%;
 }
