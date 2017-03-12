@@ -7,7 +7,7 @@ var client = algoliasearch('TRSE7O3IIG', '883a415024ea2e75c8451da21a42d077');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-client.deleteIndex("testing-purposes");
+//client.deleteIndex("testing-purposes");
 
 var id_weight = "SuperAwesomeMakeAmericaGreatAganAndGetMyId";
 var post_weight = "amazingnotterriblepostidentifyer";
@@ -129,6 +129,6 @@ function algoliatest(){
 
 }
 
-algoliatest();
+//algoliatest();
 
 console.log("cake");
