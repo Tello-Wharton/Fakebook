@@ -22,7 +22,7 @@
         <section class="composition-box main-content">
             <form id="post-form" method="post" action="/set-status">
                 <div class="composition-user">
-                    <select name="id" class="user-select">
+                    <select id="fb-peeps" name="id" class="user-select">
                         <option value="test"> Joe Bloggs </option>
                     </select>
                 </div>
@@ -102,15 +102,15 @@
 
         console.log(list_ids);
 
-        /*
-        var sel = document.getElementById('CuisineList');
-          for(var i = 0; i < cuisines.length; i++) {
-              var opt = document.createElement('option');
-              opt.innerHTML = cuisines[i];
-              opt.value = cuisines[i];
-              sel.appendChild(opt);
-          }
-          */
+
+        var sel = document.getElementById('fb-peeps');
+        for(var list_id in list_ids) {
+            var opt = document.createElement('option');
+            opt.innerHTML = "cake";
+            opt.value = list_id;
+            sel.appendChild(opt);
+        }
+
       });
 
 
