@@ -1,0 +1,79 @@
+<head>
+    <title>Fakebook</title>
+    <meta charset="utf-8"/>
+
+    <link rel="stylesheet" href="/css/general.css"/>
+    <script src="/scripts/jquery-3.1.1.js"></script>
+    <script src="/scripts/handlebars-v4.0.5.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="/images/fakebook-icon.png" alt="Fakebook"/>
+            <div class="header-text"/>
+                <h1>Fakebook</h1>
+                <p class="subtitle">Fake it with your friends</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="composition-box main-content">
+            <form id="post-form" method="post" action="/set-status">
+                <div class="composition-user">
+                    <select name="id" class="user-select">
+                        <option> Joe Bloggs </option>
+                    </select>
+                </div>
+                <div class="composition-content">
+                    <textarea name="content" class="post-text" placeholder="What's on Joe Blogg's mind?"></textarea>
+                </div>
+                <div class="composition-send">
+                    <input class="post-submit" type="submit"/>
+                </div>
+            </form>
+        </section>
+        <section class="feed">
+            <script id="post-template" type="text/x-handlebars-template">
+                <div class="post main-content">
+                    <div class="post-body">
+                        <img src="" alt="User" class="profile-picture"/>
+                        <p class="name">{{name}}</p>
+                        <p class="post-text">{{postText}}</p>
+                    </div>
+                </div>
+            </script>
+        </section>
+
+    </main>
+    <script>
+        $(document).ready(updateFeed);
+
+        function updateFeed() {
+            $.get("/feed", function(response) {
+                console.log(response);
+                var newFeedHtml = "";
+
+                var data = JSON.parse(response);
+                for(var i = data.length-1; i >= 0; i--) {
+                    var postObject = data[i];
+                    var postHtml = makePostHtml(postObject);
+
+                    newFeedHtml = postHtml + newFeedHtml;
+                }
+
+                $(".feed").html(newFeedHtml);
+            });
+        }
+
+        function makePostHtml(postObject) {
+            var source   = $("#post-template").html();
+            var template = Handlebars.compile(source);
+            var context = {
+                name: postObject.hit,
+                postText: postObject.content
+            };
+            var html = template(context);
+            return html;
+        }
+    </script>
+</body>
