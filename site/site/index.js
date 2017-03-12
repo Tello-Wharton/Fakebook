@@ -61,7 +61,7 @@ app.post("/set-status", urlencodedParser, function(req, res) {
 
     index.addObjects(objects, function(err, content) {
       console.log(content);
-      res.send("cake");
+      res.redirect("/userArea");
     });
 });
 
@@ -89,7 +89,7 @@ app.get("/feed", function(req, res) {
     var cleanhits = [];
     content.hits.forEach(function(hit){
       cleanhits.push({
-        hit : hit.id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId",""),
+        id : hit.id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId",""),
         content : hit.content,
         time : hit.time
       });

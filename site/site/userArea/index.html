@@ -5,8 +5,10 @@
     <link rel="stylesheet" href="/css/general.css"/>
     <script src="/scripts/jquery-3.1.1.js"></script>
     <script src="/scripts/handlebars-v4.0.5.js"></script>
+    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
 </head>
 <body>
+	<script src="/scripts/fbLogin.js"></script>
     <header>
         <div class="header-content">
             <img src="/images/fakebook-icon.png" alt="Fakebook"/>
@@ -20,8 +22,8 @@
         <section class="composition-box main-content">
             <form id="post-form" method="post" action="/set-status">
                 <div class="composition-user">
-                    <select name="id" class="user-select">
-                        <option> Joe Bloggs </option>
+                    <select id="fb-peeps" name="id" class="user-select">
+                        <option value="test"> Joe Bloggs </option>
                     </select>
                 </div>
                 <div class="composition-content">
@@ -36,8 +38,8 @@
             <script id="post-template" type="text/x-handlebars-template">
                 <div class="post main-content">
                     <div class="post-body">
-                        <img src="" alt="User" class="profile-picture"/>
-                        <p class="name">{{name}}</p>
+                        <img src="" alt="User" class="profile-picture fbPicture-{{id}}"/>
+                        <p class="name fbName-{{id}}">Placeholder Name</p>
                         <p class="post-text">{{postText}}</p>
                     </div>
                 </div>
@@ -50,6 +52,7 @@
 
         function updateFeed() {
             $.get("/feed", function(response) {
+				ids = [];
                 console.log(response);
                 var newFeedHtml = "";
 
@@ -59,9 +62,13 @@
                     var postHtml = makePostHtml(postObject);
 
                     newFeedHtml = postHtml + newFeedHtml;
+
+					addIDToBeInserted(data[i].id);
                 }
 
                 $(".feed").html(newFeedHtml);
+
+				insertUsersInfos();
             });
         }
 
@@ -69,11 +76,94 @@
             var source   = $("#post-template").html();
             var template = Handlebars.compile(source);
             var context = {
-                name: postObject.hit,
+                id: postObject.id,
                 postText: postObject.content
             };
             var html = template(context);
             return html;
         }
+    </script>
+    <script>
+
+      var client = algoliasearch('TRSE7O3IIG', '883a415024ea2e75c8451da21a42d077');
+      var index = client.initIndex('testing-purposes');
+
+      index.search("SuperAwesomeMakeAmericaGreatAganAndGetMyId",{
+        attributesToRetrieve: ['id', 'name'],
+        hitsPerPage: 50
+      }, function searchDone(err, content) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+
+        var list_ids = {};
+
+        for (var h in content.hits) {
+          console.log('Hit(' + content.hits[h].objectID + '): ' + content.hits[h].toString());
+          console.log(list_ids);
+          if(content.hits[h].id != undefined)list_ids[content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "")] = content.hits[h].id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId", "");
+        }
+
+        console.log(list_ids);
+
+
+        var sel = document.getElementById('fb-peeps');
+        for(var list_id in list_ids) {
+            var opt = document.createElement('option');
+            opt.innerHTML = "cake";
+            opt.value = list_id;
+            sel.appendChild(opt);
+        }
+
+      });
+
+
+      /**
+      var ALGOLIA_APPID = 'TRSE7O3IIG';
+      var ALGOLIA_SEARCH_APIKEY = '883a415024ea2e75c8451da21a42d077';
+      var ALGOLIA_INDEX_NAME = 'testing-purposes';
+      var NB_RESULTS_DISPLAYED = 5;
+      // #2- Algolia API Client Initialization
+      var algoliaClient = new algoliasearch(ALGOLIA_APPID, ALGOLIA_SEARCH_APIKEY);
+      var index = algoliaClient.initIndex(ALGOLIA_INDEX_NAME);
+      var lastQuery = '';
+      $('#autocomplete-textarea').textcomplete([
+        {
+          // #3 - Regular expression used to trigger the autocomplete dropdown
+          match: /(^|\s)@(\w*(?:\s*\w*))$/,
+          // #4 - Function called at every new keystroke
+          search: function(query, callback) {
+            console.log("cake1");
+            lastQuery = query;
+            index.search(lastQuery, { hitsPerPage: NB_RESULTS_DISPLAYED })
+              .then(function searchSuccess(content) {
+
+                if (content.query === lastQuery) {
+
+                  callback(content.hits);
+                }
+              })
+              .catch(function searchFailure(err) {
+                console.log("cake");
+
+                console.error(err);
+              });
+          },
+          // #5 - Template used to display each result obtained by the Algolia API
+          template: function (hit) {
+            // Returns the highlighted version of the name attribute
+            return hit._highlightResult.name.value;
+          },
+          // #6 - Template used to display the selected result in the textarea
+          replace: function (hit) {
+            return ' @' + hit.name.trim() + ' ';
+          }
+        }
+      ], {
+        footer: '&lt;div style="text-align: center; display: block; font-size:12px; margin: 5px 0 0 0;"&gt;Powered by &lt;a href="http://www.algolia.com"&gt;&lt;img src="https://www.algolia.com/assets/algolia128x40.png" style="height: 14px;" /&gt;&lt;/a&gt;&lt;/div&gt;'
+      });
+      **/
+
     </script>
 </body>
