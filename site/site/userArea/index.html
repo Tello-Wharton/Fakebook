@@ -38,16 +38,23 @@
                 </div>
             </form>
         </section>
+
+
+
+		<script id="post-template" type="text/x-handlebars-template">
+			<div class="post main-content">
+				<div class="post-body">
+					<img src="" alt="User" class="profile-picture fbPicture-{{id}}"/>
+					<p class="name fbName-{{id}}">Placeholder Name</p>
+					<p class="post-text">{{postText}}</p>
+				</div>
+			</div>
+		</script>
+
+
+
         <section class="feed">
-            <script id="post-template" type="text/x-handlebars-template">
-                <div class="post main-content">
-                    <div class="post-body">
-                        <img src="" alt="User" class="profile-picture fbPicture-{{id}}"/>
-                        <p class="name fbName-{{id}}">Placeholder Name</p>
-                        <p class="post-text">{{postText}}</p>
-                    </div>
-                </div>
-            </script>
+
         </section>
     </main>
 	<script>
@@ -66,9 +73,11 @@
 		}
 	</script>
     <script>
-        $(document).ready(updateFeed);
+        //The stuff that call it is underneath
+        var updateFeed = function(){
+			var d = new Date();
+			console.log('updating -> ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
 
-        function updateFeed() {
             $.get("/feed", function(response) {
 				ids = [];
                 var newFeedHtml = "";
@@ -99,6 +108,13 @@
             var html = template(context);
             return html;
         }
+
+		$(document).ready(updateFeed);
+		$(document).ready(setAutoReload);
+
+		function setAutoReload(){
+			window.setInterval(updateFeed, 10000);
+		}
     </script>
     <script>
 
