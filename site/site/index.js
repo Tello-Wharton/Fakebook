@@ -71,7 +71,7 @@ app.get("/feed", function(req, res) {
     var cleanhits = [];
     content.hits.forEach(function(hit){
       cleanhits.push({
-        hit : hit.id,
+        hit : hit.id.replace("SuperAwesomeMakeAmericaGreatAganAndGetMyId",""),
         content : hit.content,
         time : hit.time
       });
